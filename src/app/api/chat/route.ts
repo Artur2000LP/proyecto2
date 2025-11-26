@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SYSTEM_PROMPT } from '@/lib/ai/prompts';
-import { sanitizeUserInput, checkRateLimit, AI_CONFIG } from '@/lib/ai/agent-config';
+import { sanitizeUserInput, checkRateLimit, AI_CONFIG, getGeminiParams } from '@/lib/ai/agent-config';
 
 // Configuración para Edge Runtime (opcional, más rápido)
 // export const runtime = 'edge';
@@ -40,6 +40,80 @@ export async function POST(req: NextRequest) {
     const contextMessages = sanitizedMessages.slice(
       -AI_CONFIG.limits.maxMessagesInContext
     );
+
+    // OPCIÓN 1: Usar OpenAI (requiere OPENAI_API_KEY en .env.local)
+    // OPCIÓN 0: Usar Gemini (Google Generative AI) si está configurado
+    if (process.env.GEMINI_API_KEY || process.env.GEMINI_ACCESS_TOKEN) {
+      const model = process.env.GEMINI_MODEL || AI_CONFIG.models.gemini.fast;
+
+      // Prefer the stable v1 endpoint when available
+      const baseEndpoint = `https://generativelanguage.googleapis.com/v1/models/${model}:generate`;
+
+      // Support two authentication modes:
+      // - GEMINI_ACCESS_TOKEN: Bearer token (recommended for service accounts / OAuth)
+      // - GEMINI_API_KEY: simple API key (may not be allowed for all models)
+      const useBearer = Boolean(process.env.GEMINI_ACCESS_TOKEN);
+      const endpoint = useBearer
+        ? baseEndpoint
+        : `${baseEndpoint}?key=${process.env.GEMINI_API_KEY}`;
+
+      // Construir prompt simple concatenando system + mensajes en contexto
+      const promptText = [
+        SYSTEM_PROMPT,
+        ...contextMessages.map((m) => `${m.role === 'user' ? 'User' : m.role}: ${m.content}`),
+      ].join('\n\n');
+
+      const { temperature, maxTokens } = getGeminiParams();
+
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (useBearer) {
+        headers.Authorization = `Bearer ${process.env.GEMINI_ACCESS_TOKEN}`;
+      }
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          prompt: { text: promptText },
+          temperature,
+          maxOutputTokens: maxTokens,
+        }),
+      });
+
+      if (!response.ok) {
+        // Registrar status y body para depuración local y seguir con fallback a otros proveedores
+        const bodyText = await response.text();
+        console.error('Gemini API returned non-OK:', response.status, response.statusText, bodyText);
+        // En modo desarrollo devolvemos el body de error al cliente para poder depurar desde el navegador.
+        if (process.env.NODE_ENV !== 'production') {
+          return NextResponse.json(
+            {
+              message: 'Gemini API returned non-OK',
+              status: response.status,
+              statusText: response.statusText,
+              geminiError: bodyText,
+            },
+            { status: 502 }
+          );
+        }
+        // En producción seguimos con el fallback a OpenAI/Groq si están configurados
+      } else {
+        const data = await response.json();
+
+        // Intentar extraer el texto en posibles campos de respuesta
+        const assistantMessage =
+          data?.candidates?.[0]?.output ||
+          data?.candidates?.[0]?.content ||
+          data?.output?.[0]?.content?.text ||
+          data?.output ||
+          data?.result ||
+          // algunos endpoints devuelven `candidates[0].content[0].text` u otros formatos
+          (data?.candidates?.[0]?.content?.[0]?.text) ||
+          JSON.stringify(data);
+
+        return NextResponse.json({ message: assistantMessage });
+      }
+    }
 
     // OPCIÓN 1: Usar OpenAI (requiere OPENAI_API_KEY en .env.local)
     if (process.env.OPENAI_API_KEY) {

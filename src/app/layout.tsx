@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Orbitron } from "next/font/google";
 import "./globals.css";
+import Navigation from '@/components/ui/Navigation';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -43,11 +44,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang="es" className="scroll-smooth" data-scroll-behavior="smooth">
       <body
         className={`${inter.variable} ${orbitron.variable} antialiased font-sans`}
       >
-        {children}
+        <Navigation />
+        <main className="pt-16">{children}</main>
       </body>
     </html>
   );

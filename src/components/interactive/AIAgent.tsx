@@ -18,14 +18,14 @@ export default function AIAgent() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: `¡Hola! Soy el asistente de Michel Palma.\n\nPuedo ayudarte con:\n• Proyectos y experiencia\n• Habilidades técnicas\n• Cursos y contacto\n\n¿Qué necesitas?`,
+      content: `¡Bienvenido! Soy tu Agente IA, tu tutor personalizado para los cursos de IA.\n\n🎉 Estos días todos los cursos están completamente GRATIS, sin pago alguno. ¡Aprovecha la oportunidad!\n\nPuedes preguntarme lo que quieras sobre los cursos, temarios, prácticas, requisitos o cualquier duda que tengas. Estoy aquí para guiarte y apoyarte en tu aprendizaje.\n\n¿Sobre qué curso o tema te gustaría saber más?`,
       timestamp: Date.now(),
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const [selectedProvider, setSelectedProvider] = useState<'gemini' | 'gemini-pago' | 'openai' | 'groq' | 'anthropic'>('gemini');
+  const [selectedProvider, setSelectedProvider] = useState< 'openai' | 'groq' | 'gemini' | 'gemini-pago' | 'anthropic'>('openai');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -55,7 +55,11 @@ export default function AIAgent() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          messages: [...messages, userMessage].map((m) => ({
+          messages: [
+            { role: 'system', content: `Eres un Agente IA tutor personalizado para los cursos de IA. Responde de forma clara, motivadora y práctica. Informa que los cursos están gratis por tiempo limitado y que puedes ayudar con cualquier duda sobre los cursos, temarios, prácticas o requisitos.` },
+            ...messages,
+            userMessage,
+          ].map((m) => ({
             role: m.role,
             content: m.content,
           })),
@@ -132,10 +136,10 @@ export default function AIAgent() {
                     className="bg-red-950/50 text-xs text-white border border-red-700 rounded px-1 py-0.5 focus:outline-none focus:border-red-500"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <option value="gemini">Gemini (Gratis)</option>
-                    <option value="gemini-pago">Gemini 2.0 (Pago)</option>
                     <option value="openai">OpenAI</option>
                     <option value="groq">Groq</option>
+                    <option value="gemini">Gemini (Gratis)</option>
+                    <option value="gemini-pago">Gemini 2.0 (Pago)</option>
                     <option value="anthropic">Claude (Anthropic)</option>
                   </select>
                 </div>

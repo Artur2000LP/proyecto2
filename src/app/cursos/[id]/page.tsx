@@ -32,7 +32,7 @@ export default function VideoPage() {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedProvider, setSelectedProvider] = useState<'gemini' | 'gemini-pago' | 'openai' | 'groq' | 'anthropic'>('gemini');
+  const [selectedProvider, setSelectedProvider] = useState<'openai' | 'groq' | 'gemini' | 'gemini-pago' | 'anthropic'>('openai');
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
@@ -81,13 +81,14 @@ export default function VideoPage() {
                 onChange={(e) => setSelectedProvider(e.target.value as any)}
                 className="text-xs border border-red-700 bg-gray-800 text-white rounded px-2 py-1 focus:outline-none focus:border-red-500"
               >
-                <option value="gemini">Gemini</option>
-                <option value="gemini-pago">Gemini 2.0</option>
                 <option value="openai">OpenAI</option>
                 <option value="groq">Groq</option>
-                <option value="anthropic">Claude</option>
+                <option value="gemini">Gemini (Gratis)</option>
+                <option value="gemini-pago">Gemini 2.0 (Pago)</option>
+                <option value="anthropic">Claude (Anthropic)</option>
               </select>
             </div>
+
             <div className="space-y-3 mb-3 flex-1 overflow-y-auto min-h-0">
               {chatMessages.map((m, i) => (
                 <div key={i} className={`${m.role === 'user' ? 'text-right' : 'text-left'}`}>
@@ -96,6 +97,18 @@ export default function VideoPage() {
                   </div>
                 </div>
               ))}
+              {isLoading && (
+                <div className="text-left">
+                  <div className="inline-block p-2 rounded bg-red-900/50 text-white border border-red-700/50">
+                    <span className="flex items-center gap-1">
+                      <span className="w-2 h-2 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                      <span className="w-2 h-2 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                      <span className="w-2 h-2 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                      <span className="ml-2 text-sm">Escribiendo...</span>
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex gap-2">

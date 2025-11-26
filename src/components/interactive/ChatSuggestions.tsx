@@ -3,10 +3,11 @@
 import { MessageCircle } from 'lucide-react';
 
 const SUGGESTIONS = [
-  "¿Qué proyectos con IA ha realizado?",
-  "¿Qué cursos ofrece?",
-  "¿Cuál es su experiencia?",
-  "¿Cómo puedo contactarlo?",
+  "¿Cómo accedo a los cursos gratuitos?",
+  "¿Necesito experiencia previa para aprender?",
+  "¿Qué obtengo en cada curso?",
+  "¿Cómo funciona la asesoría con IA?",
+  "¿Cómo obtengo mi certificación?",
 ];
 
 interface ChatSuggestionsProps {

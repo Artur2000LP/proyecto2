@@ -1,19 +1,19 @@
 {
-  "name": "Michel Palma",
-  "title": "Desarrollador Full Stack & Instructor de Tecnología",
-  "bio": "Desarrollador apasionado por la tecnología y la enseñanza. Especializado en desarrollo web moderno con React, Next.js y la integración de Inteligencia Artificial en aplicaciones prácticas.",
-  "location": "Perú",
-  "email": "contacto@michelpalma.com",
-  "phone": "+51 999 999 999",
-  "website": "https://michelpalma.com",
+  "name": "Cursos IA Online",
+  "title": "Formación en Inteligencia Artificial y Desarrollo Web",
+  "bio": "Plataforma de cursos y mentorías especializadas en Inteligencia Artificial, desarrollo web moderno y tecnologías emergentes. Aprende de manera práctica y actualizada.",
+  "location": "Online",
+  "email": "soporte@cursosia.com",
+  "phone": "+51 900 000 000",
+  "website": "https://cursosia.com",
   "social": {
-    "github": "https://github.com/tuusuario",
-    "linkedin": "https://linkedin.com/in/tuusuario",
-    "twitter": "https://twitter.com/tuusuario"
+    "github": "https://github.com/cursosia",
+    "linkedin": "https://linkedin.com/company/cursosia",
+    "twitter": "https://twitter.com/cursosia"
   },
-  "avatar": "/miPerfil/avatar.jpg",
-  "resume": "/miPerfil/cv-michel-palma.pdf",
-  "availability": "Disponible para proyectos y consultoría",
+  "avatar": "/miPerfil/logo-cursosia.png",
+  "resume": "/miPerfil/catalogo-cursosia.pdf",
+  "availability": "Inscripciones abiertas todo el año",
   "yearsOfExperience": 5,
   "studentsTeached": 200,
   "projectsCompleted": 50

@@ -46,8 +46,8 @@ export async function POST(req: NextRequest) {
     if (process.env.GEMINI_API_KEY || process.env.GEMINI_ACCESS_TOKEN) {
       const model = process.env.GEMINI_MODEL || AI_CONFIG.models.gemini.fast;
 
-      // Prefer the stable v1 endpoint when available
-      const baseEndpoint = `https://generativelanguage.googleapis.com/v1/models/${model}:generate`;
+      // Prefer the stable v1beta endpoint for newer models
+      const baseEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
       // Support two authentication modes:
       // - GEMINI_ACCESS_TOKEN: Bearer token (recommended for service accounts / OAuth)
@@ -74,9 +74,11 @@ export async function POST(req: NextRequest) {
         method: 'POST',
         headers,
         body: JSON.stringify({
-          prompt: { text: promptText },
-          temperature,
-          maxOutputTokens: maxTokens,
+          contents: [{ parts: [{ text: promptText }] }],
+          generationConfig: {
+            temperature,
+            maxOutputTokens: maxTokens,
+          },
         }),
       });
 
@@ -101,14 +103,14 @@ export async function POST(req: NextRequest) {
         const data = await response.json();
 
         // Intentar extraer el texto en posibles campos de respuesta
+        // Intentar extraer el texto en posibles campos de respuesta
         const assistantMessage =
+          data?.candidates?.[0]?.content?.parts?.[0]?.text ||
           data?.candidates?.[0]?.output ||
           data?.candidates?.[0]?.content ||
           data?.output?.[0]?.content?.text ||
           data?.output ||
           data?.result ||
-          // algunos endpoints devuelven `candidates[0].content[0].text` u otros formatos
-          (data?.candidates?.[0]?.content?.[0]?.text) ||
           JSON.stringify(data);
 
         return NextResponse.json({ message: assistantMessage });

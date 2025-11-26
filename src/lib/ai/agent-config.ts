@@ -23,8 +23,8 @@ export const AI_CONFIG = {
     },
     gemini: {
       // Modelo por defecto, puede ser sobreescrito con la var de entorno GEMINI_MODEL
-      fast: 'gemini-2.0-flash',
-      smart: 'gemini-2.0',
+      fast: 'gemini-1.5-flash',
+      smart: 'gemini-1.5-pro',
     },
   },
 

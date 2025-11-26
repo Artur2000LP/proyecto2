@@ -2,15 +2,13 @@
 
 ## ⚡ SOLUCIÓN RÁPIDA (5 minutos)
 
-### OPCIÓN 1: Groq (GRATIS - SIN TARJETA) ⭐ RECOMENDADO
+### OPCIÓN 1: Gemini (Google - GRATIS) ⭐ RECOMENDADO
 
 #### Paso 1: Obtener API Key
-1. Ve a: **https://console.groq.com/**
-2. Haz clic en "Sign Up" (registrarse)
-3. Registra con tu email (Gmail, etc.)
-4. Ve a "API Keys" en el menú izquierdo
-5. Haz clic en "Create API Key"
-6. Copia la key que empieza con `gsk_...`
+1. Ve a: **https://aistudio.google.com/app/apikey**
+2. Haz clic en "Create API key"
+3. Selecciona tu proyecto (o crea uno nuevo)
+4. Copia la key que empieza con `AIza...`
 
 #### Paso 2: Crear archivo .env.local
 1. En la raíz del proyecto (donde está `package.json`)
@@ -18,7 +16,7 @@
 3. Pega esto dentro:
 
 ```env
-GROQ_API_KEY=gsk_aqui-pega-tu-key-completa
+GEMINI_API_KEY=AIza-aqui-pega-tu-key-completa
 ```
 
 #### Paso 3: Reiniciar servidor
@@ -34,6 +32,8 @@ npm run dev
 3. ¡Escribe algo y el agente responderá!
 
 ---
+
+### OPCIÓN 2: Groq (GRATIS - SIN TARJETA)
 
 ### OPCIÓN 2: OpenAI (Más potente - Requiere tarjeta)
 

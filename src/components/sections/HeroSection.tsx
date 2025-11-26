@@ -101,117 +101,40 @@ export default function HeroSection() {
           </h1>
         </motion.div>
 
-        {/* Instructor Profile */}
+
+        {/* Atajos y recomendaciones */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.5 }}
           className="mb-8 sm:mb-12 px-4"
         >
-          <div className="max-w-4xl mx-auto bg-slate-800/30 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-blue-500/20 hover:border-blue-500/30 transition-all duration-300">
-            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
-              {/* Profile Image */}
-              <div className="relative">
-                <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-cyan-400 p-1 bg-gradient-to-r from-blue-400 to-cyan-400">
-                  <img
-                    src="/miPerfil/fotoMichet.jpeg"
-                    alt="Mtro. Ing. Michel Palma Vargas"
-                    className="w-full h-full object-cover rounded-full bg-slate-800"
-                  />
-                </div>
-                {/* Online indicator */}
-                <div className="absolute bottom-2 right-2 w-6 h-6 bg-green-400 rounded-full border-4 border-slate-900 flex items-center justify-center">
-                  <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
-                </div>
+          <div className="max-w-3xl mx-auto bg-slate-800/30 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-blue-500/20 hover:border-blue-500/30 transition-all duration-300">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 text-white text-center">Accesos rápidos y recomendaciones</h2>
+            <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+              {/* Atajos */}
+              <div className="flex-1 space-y-3">
+                <a href="/cursos" className="block bg-blue-600/80 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition-all text-center">Ver todos los cursos</a>
+                <a href="/cursos/Fi3AJZZregI" className="block bg-cyan-600/80 hover:bg-cyan-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition-all text-center">Ir al curso: GitHub Copilot</a>
+                <a href="/cursos/UIZAiXYceBI" className="block bg-purple-600/80 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition-all text-center">Ir al curso: Google Gemini</a>
               </div>
-
-              {/* Profile Info */}
-              <div className="flex-1 text-center md:text-left">
-                <div className="mb-3">
-                  <motion.h2
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 1.8 }}
-                    className="text-2xl sm:text-3xl font-bold text-white mb-2"
-                  >
-                    Mtro. Ing. Michel Palma Vargas
-                  </motion.h2>
-                  <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-3">
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.3, delay: 2.0 }}
-                      className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-medium border border-blue-500/30"
-                    >
-                      Especialista en IA Educativa
-                    </motion.span>
-                    <motion.span
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.3, delay: 2.2 }}
-                      className="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded-full text-sm font-medium border border-cyan-500/30"
-                    >
-                      Innovación Tecnológica
-                    </motion.span>
-                  </div>
+              {/* Recomendaciones */}
+              <div className="flex-1 space-y-3 text-gray-200 text-left">
+                <div className="bg-slate-900/60 rounded-lg p-4 border border-blue-500/10">
+                  <span className="font-semibold text-blue-400">Recomendación:</span> Antes de iniciar, revisa los requisitos del curso y ten a la mano tu cuenta de Google/GitHub si es necesario.
                 </div>
-
-
-                {/* Quick Stats */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm">
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 2.4 }}
-                    className="flex items-center gap-2 text-gray-400"
-                  >
-                    <BookOpen className="h-4 w-4 text-blue-400" />
-                    <span>5+ Años Experiencia</span>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 2.6 }}
-                    className="flex items-center gap-2 text-gray-400"
-                  >
-                    <Sparkles className="h-4 w-4 text-cyan-400" />
-                    <span>Especialista UNESCO</span>
-                  </motion.div>
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 2.8 }}
-                    className="flex items-center gap-2 text-gray-400"
-                  >
-                    <Zap className="h-4 w-4 text-blue-400" />
-                    <span>Innovador Educativo</span>
-                  </motion.div>
+                <div className="bg-slate-900/60 rounded-lg p-4 border border-blue-500/10">
+                  <span className="font-semibold text-blue-400">Tip:</span> Toma notas y realiza las prácticas sugeridas para aprovechar al máximo cada módulo.
+                </div>
+                <div className="bg-slate-900/60 rounded-lg p-4 border border-blue-500/10">
+                  <span className="font-semibold text-blue-400">¿Dudas?</span> Usa el chat de la derecha para preguntar lo que necesites sobre los cursos.
                 </div>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* CTA Buttons - Casual */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 3.0 }}
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
-        >
-          <a
-            href="#sesiones"
-            className="bg-slate-800/50 text-gray-300 px-5 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-slate-700/60 hover:text-white transition-all duration-200 text-sm sm:text-base text-center border border-slate-700/50"
-          >
-            Ver Sesiones del Curso
-          </a>
-          <a
-            href="#aplicaciones-ia"
-            className="bg-slate-800/30 text-gray-400 px-5 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-slate-800/50 hover:text-gray-300 transition-all duration-200 text-sm sm:text-base text-center border border-slate-600/30"
-          >
-            Explorar Cursos
-          </a>
-        </motion.div>
+
       </div>
     </div>
   );

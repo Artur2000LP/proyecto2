@@ -118,22 +118,22 @@ export async function POST(req: NextRequest) {
         break;
 
       case 'gemini-pago':
-        if (process.env['GEMINI_API_KEY-pago']) {
-          const model = process.env['GEMINI_MODEL-pago'] || 'gemini-2.0-flash-exp';
+        if (process.env.GEMINI_API_KEY_PAGO) {
+          const model = process.env.GEMINI_MODEL_PAGO || 'gemini-2.0-flash-exp';
 
           const baseEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-          const endpoint = `${baseEndpoint}?key=${process.env['GEMINI_API_KEY-pago']}`;
+          const endpoint = `${baseEndpoint}?key=${process.env.GEMINI_API_KEY_PAGO}`;
 
           const promptText = [
             SYSTEM_PROMPT,
             ...contextMessages.map((m) => `${m.role === 'user' ? 'User' : m.role}: ${m.content}`),
           ].join('\n\n');
 
-          const temperature = process.env['GEMINI_TEMPERATURE-pago']
-            ? Number(process.env['GEMINI_TEMPERATURE-pago'])
+          const temperature = process.env.GEMINI_TEMPERATURE_PAGO
+            ? Number(process.env.GEMINI_TEMPERATURE_PAGO)
             : 0.5;
-          const maxTokens = process.env['GEMINI_MAX_TOKENS-pago']
-            ? Number(process.env['GEMINI_MAX_TOKENS-pago'])
+          const maxTokens = process.env.GEMINI_MAX_TOKENS_PAGO
+            ? Number(process.env.GEMINI_MAX_TOKENS_PAGO)
             : 2048;
 
           const response = await fetch(endpoint, {

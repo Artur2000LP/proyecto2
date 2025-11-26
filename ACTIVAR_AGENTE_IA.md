@@ -40,17 +40,19 @@ npm run dev
 #### Paso 1: Obtener API Key
 1. Ve a: **https://platform.openai.com/signup**
 2. Regístrate con tu email
-3. Agrega método de pago (te dan $5 gratis)
+3. Agrega método de pago (te dan $5 gratis en cuentas nuevas)
 4. Ve a: **https://platform.openai.com/api-keys**
 5. Crea nueva API key
 6. Copia la key que empieza con `sk-...`
 
 #### Paso 2: Crear archivo .env.local
-En la raíz del proyecto, crea `.env.local`:
+1. En la raíz del proyecto, edita o crea `.env.local`
+2. Agrega tu key así:
 
 ```env
-OPENAI_API_KEY=sk-aqui-pega-tu-key-completa
+OPENAI_API_KEY=sk-tu-key-aqui
 ```
+> **Nota**: Puedes tener ambas keys (Gemini y OpenAI) en el mismo archivo.
 
 #### Paso 3: Reiniciar y probar
 ```bash

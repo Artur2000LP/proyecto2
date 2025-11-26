@@ -49,18 +49,18 @@ export function generateContext(): string {
 
 ## HABILIDADES TÉCNICAS (${totalSkills} en total)
 ${knowledgeBase.skills.categories
-  .map(
-    (cat) => `
+      .map(
+        (cat) => `
 ### ${cat.icon} ${cat.name}
 ${cat.skills.map((skill) => `- ${skill.name}: ${skill.level}% (${skill.yearsOfExperience} años)`).join('\n')}
 `
-  )
-  .join('\n')}
+      )
+      .join('\n')}
 
 ## PROYECTOS DESTACADOS (${featuredProjects.length})
 ${featuredProjects
-  .map(
-    (project) => `
+      .map(
+        (project) => `
 ### ${project.title}
 - Descripción: ${project.description}
 - Categoría: ${project.category}
@@ -71,13 +71,13 @@ ${featuredProjects
 - Aspectos destacados:
 ${project.highlights.map((h) => `  * ${h}`).join('\n')}
 `
-  )
-  .join('\n')}
+      )
+      .join('\n')}
 
 ## CURSOS Y FORMACIÓN (${availableCourses.length} disponibles)
 ${availableCourses
-  .map(
-    (course) => `
+      .map(
+        (course) => `
 ### ${course.title}
 - Nivel: ${course.level}
 - Duración: ${course.duration} (${course.totalHours} horas totales)
@@ -86,13 +86,13 @@ ${availableCourses
 - Rating: ${course.rating}/5.0
 - Temas: ${course.topics.join(', ')}
 `
-  )
-  .join('\n')}
+      )
+      .join('\n')}
 
 ## SESIONES INDIVIDUALES
 ${knowledgeBase.courses.sessions
-  .map(
-    (session) => `
+      .map(
+        (session) => `
 ### ${session.title}
 - Tipo: ${session.type}
 - Duración: ${session.duration}
@@ -100,13 +100,13 @@ ${knowledgeBase.courses.sessions
 - Formato: ${session.format}
 - Descripción: ${session.description}
 `
-  )
-  .join('\n')}
+      )
+      .join('\n')}
 `;
 }
 
 // Función para buscar información específica
-export function searchKnowledge(query: string): any {
+export function searchKnowledge(query: string): { projects: typeof knowledgeBase.projects.projects; skills: any[]; courses: typeof knowledgeBase.courses.courses } {
   const lowerQuery = query.toLowerCase();
 
   // Buscar en proyectos

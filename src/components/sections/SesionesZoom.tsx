@@ -119,9 +119,9 @@ export default function SesionesZoomSection() {
                       <div className="flex items-center gap-4 text-xs text-gray-400">
                         <div className="flex items-center gap-1">
                           <Calendar size={12} />
-                          <span>{new Date(session.date).toLocaleDateString('es-ES', { 
-                            day: '2-digit', 
-                            month: '2-digit' 
+                          <span>{new Date(session.date).toLocaleDateString('es-ES', {
+                            day: '2-digit',
+                            month: '2-digit'
                           })}</span>
                         </div>
                         <div className="flex items-center gap-1">
@@ -131,7 +131,7 @@ export default function SesionesZoomSection() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}

@@ -18,8 +18,8 @@ export default function Navigation() {
     { name: 'Inicio', href: '/', icon: Home, section: 'hero' },
     { name: 'Zoom', href: '/zoom', icon: Video, section: 'about-course' },
     { name: 'Sesiones', href: '/sesiones', icon: Calendar, section: 'sesiones' },
-    { name: 'Aplicaciones IA', href: '/videos', icon: Cpu, section: 'aplicaciones-ia' },
-    { name: 'Contacto', href: '/contact', icon: Phone, section: 'contact' },
+    { name: 'Cursos', href: '/cursos', icon: Cpu, section: 'aplicaciones-ia' },
+    { name: 'Soporte', href: '/contact', icon: Phone, section: 'contact' },
   ];
 
   // Detectar la sección activa basándose en el scroll (solo en la página '/'),
@@ -30,13 +30,13 @@ export default function Navigation() {
       '/': 'hero',
       '/zoom': 'about-course',
       '/sesiones': 'sesiones',
-      '/videos': 'aplicaciones-ia',
+      '/cursos': 'aplicaciones-ia',
       '/contact': 'contact',
     };
 
     if (pathname && pathname !== '/') {
       // Para rutas dinámicas de videos (/videos/123) mapear a 'aplicaciones-ia'
-      if (pathname.startsWith('/videos')) {
+      if (pathname.startsWith('/cursos')) {
         setActiveSection('aplicaciones-ia');
       } else if (routeMap[pathname]) {
         setActiveSection(routeMap[pathname]);
@@ -121,9 +121,8 @@ export default function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative flex items-center space-x-1 transition-all duration-300 px-2 py-1 cursor-pointer bg-transparent ${
-                    isActive ? 'text-cyan-400' : 'text-gray-400 hover:text-gray-300'
-                  }`}
+                  className={`relative flex items-center space-x-1 transition-all duration-300 px-2 py-1 cursor-pointer bg-transparent ${isActive ? 'text-cyan-400' : 'text-gray-400 hover:text-gray-300'
+                    }`}
                   onClick={(e) => {
                     // For root path we want to force scroll after navigation
                     if (item.href === '/') {
@@ -145,9 +144,8 @@ export default function Navigation() {
                   <span>{item.name}</span>
                   {/* Indicator bar */}
                   <span
-                    className={`absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-0.5 h-0.5 rounded-full transition-all duration-200 ${
-                      isActive ? 'bg-cyan-400 w-8 h-0.5 -bottom-0' : 'bg-transparent'
-                    }`}
+                    className={`absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-0.5 h-0.5 rounded-full transition-all duration-200 ${isActive ? 'bg-cyan-400 w-8 h-0.5 -bottom-0' : 'bg-transparent'
+                      }`}
                   />
                 </Link>
               );
@@ -198,11 +196,10 @@ export default function Navigation() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
                       transition={{ duration: 0.2, delay: index * 0.05 }}
-                      className={`flex items-center space-x-2 block px-3 py-2 rounded-md transition-all duration-300 hover:bg-slate-700/50 cursor-pointer ${
-                        isActive 
-                          ? 'text-cyan-400 bg-blue-500/10' 
-                          : 'text-gray-400 hover:text-gray-300'
-                      }`}
+                      className={`flex items-center space-x-2 block px-3 py-2 rounded-md transition-all duration-300 hover:bg-slate-700/50 cursor-pointer ${isActive
+                        ? 'text-cyan-400 bg-blue-500/10'
+                        : 'text-gray-400 hover:text-gray-300'
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         handleNavClick(item.href);

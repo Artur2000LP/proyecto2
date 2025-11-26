@@ -25,6 +25,8 @@ export default function AIAgent() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const [selectedProvider, setSelectedProvider] = useState<'gemini' | 'gemini-pago' | 'openai' | 'groq' | 'anthropic'>('gemini');
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -57,6 +59,7 @@ export default function AIAgent() {
             role: m.role,
             content: m.content,
           })),
+          provider: selectedProvider,
         }),
       });
 
@@ -69,7 +72,7 @@ export default function AIAgent() {
       // Agregar respuesta del asistente
       const assistantMessage: Message = {
         role: 'assistant',
-        content: data.message,
+        content: data.provider ? `[${data.provider.toUpperCase()}] ${data.message}` : data.message,
         timestamp: Date.now(),
       };
       setMessages((prev) => [...prev, assistantMessage]);
@@ -109,11 +112,9 @@ export default function AIAgent() {
       {/* Ventana del chat */}
       {isOpen && (
         <div
-          className={`fixed ${
-            isMinimized ? 'bottom-6 right-6 w-72' : 'bottom-6 right-6 w-80 lg:w-96'
-          } z-50 bg-gray-900 border-2 border-red-700 rounded-lg shadow-2xl shadow-red-900/50 flex flex-col transition-all duration-300 ${
-            isMinimized ? 'h-16' : 'h-[550px] lg:h-[600px]'
-          }`}
+          className={`fixed ${isMinimized ? 'bottom-6 right-6 w-72' : 'bottom-6 right-6 w-80 lg:w-96'
+            } z-50 bg-gray-900 border-2 border-red-700 rounded-lg shadow-2xl shadow-red-900/50 flex flex-col transition-all duration-300 ${isMinimized ? 'h-16' : 'h-[550px] lg:h-[600px]'
+            }`}
         >
           {/* Header del chat */}
           <div className="bg-gradient-to-r from-red-900 to-red-800 p-3 rounded-t-lg flex items-center justify-between border-b border-red-700">
@@ -123,7 +124,21 @@ export default function AIAgent() {
               </div>
               <div>
                 <h3 className="font-semibold text-white text-sm">Asistente IA</h3>
-                <p className="text-xs text-red-200">En línea</p>
+                <div className="flex items-center gap-1">
+                  <span className="text-xs text-red-200">Vía:</span>
+                  <select
+                    value={selectedProvider}
+                    onChange={(e) => setSelectedProvider(e.target.value as 'gemini' | 'gemini-pago' | 'openai' | 'groq' | 'anthropic')}
+                    className="bg-red-950/50 text-xs text-white border border-red-700 rounded px-1 py-0.5 focus:outline-none focus:border-red-500"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <option value="gemini">Gemini (Gratis)</option>
+                    <option value="gemini-pago">Gemini 2.0 (Pago)</option>
+                    <option value="openai">OpenAI</option>
+                    <option value="groq">Groq</option>
+                    <option value="anthropic">Claude (Anthropic)</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-2">

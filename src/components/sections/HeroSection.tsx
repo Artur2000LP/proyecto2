@@ -1,15 +1,41 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { GraduationCap, Sparkles, Zap, BookOpen } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
+import { Sparkles, Zap, BookOpen } from 'lucide-react';
 
 export default function HeroSection() {
+  const titleText = "Bienvenido a los Cursos de IA";
+
+  const container: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const child: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring" as const,
+        damping: 12,
+        stiffness: 100
+      }
+    }
+  };
+
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-cyan-900/20" />
-        
+
         {/* Animated particles */}
         <div className="absolute inset-0">
           {[
@@ -59,34 +85,18 @@ export default function HeroSection() {
       {/* Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           className="mb-12"
+          variants={container}
+          initial="hidden"
+          animate="visible"
         >
-          <div className="flex justify-center mb-6">
-            <motion.div
-              animate={{ 
-                y: [0, -10, 0],
-                rotateY: [0, 180, 360]
-              }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-              className="relative"
-            >
-              <div className="relative bg-gradient-to-r from-blue-400 to-cyan-400 p-4 rounded-2xl shadow-2xl">
-                <GraduationCap className="h-16 w-16 text-slate-900" />
-                <div className="absolute -inset-2 bg-gradient-to-r from-blue-400/30 to-cyan-400/30 rounded-3xl blur-lg animate-pulse" />
-              </div>
-            </motion.div>
-          </div>
-          
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-center leading-tight">
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
-              TICs - IA & Innovación Educativa
+            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent inline-block">
+              {titleText.split("").map((char, index) => (
+                <motion.span key={index} variants={child} className="inline-block">
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
             </span>
           </h1>
         </motion.div>
@@ -95,7 +105,7 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 1.5 }}
           className="mb-8 sm:mb-12 px-4"
         >
           <div className="max-w-4xl mx-auto bg-slate-800/30 backdrop-blur-sm p-6 sm:p-8 rounded-2xl border border-blue-500/20 hover:border-blue-500/30 transition-all duration-300">
@@ -118,34 +128,64 @@ export default function HeroSection() {
               {/* Profile Info */}
               <div className="flex-1 text-center md:text-left">
                 <div className="mb-3">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+                  <motion.h2
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 1.8 }}
+                    className="text-2xl sm:text-3xl font-bold text-white mb-2"
+                  >
                     Mtro. Ing. Michel Palma Vargas
-                  </h2>
+                  </motion.h2>
                   <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-3">
-                    <span className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-medium border border-blue-500/30">
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 2.0 }}
+                      className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-medium border border-blue-500/30"
+                    >
                       Especialista en IA Educativa
-                    </span>
-                    <span className="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded-full text-sm font-medium border border-cyan-500/30">
+                    </motion.span>
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.3, delay: 2.2 }}
+                      className="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded-full text-sm font-medium border border-cyan-500/30"
+                    >
                       Innovación Tecnológica
-                    </span>
+                    </motion.span>
                   </div>
                 </div>
 
 
                 {/* Quick Stats */}
                 <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm">
-                  <div className="flex items-center gap-2 text-gray-400">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 2.4 }}
+                    className="flex items-center gap-2 text-gray-400"
+                  >
                     <BookOpen className="h-4 w-4 text-blue-400" />
                     <span>5+ Años Experiencia</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-400">
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 2.6 }}
+                    className="flex items-center gap-2 text-gray-400"
+                  >
                     <Sparkles className="h-4 w-4 text-cyan-400" />
                     <span>Especialista UNESCO</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-400">
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 2.8 }}
+                    className="flex items-center gap-2 text-gray-400"
+                  >
                     <Zap className="h-4 w-4 text-blue-400" />
                     <span>Innovador Educativo</span>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -156,7 +196,7 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 3.0 }}
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
         >
           <a
@@ -169,7 +209,7 @@ export default function HeroSection() {
             href="#aplicaciones-ia"
             className="bg-slate-800/30 text-gray-400 px-5 sm:px-6 py-2 sm:py-3 rounded-lg font-medium hover:bg-slate-800/50 hover:text-gray-300 transition-all duration-200 text-sm sm:text-base text-center border border-slate-600/30"
           >
-            Explorar Aplicaciones IA
+            Explorar Cursos
           </a>
         </motion.div>
       </div>

@@ -47,8 +47,9 @@ export async function POST(req: NextRequest) {
         if (process.env.GEMINI_API_KEY || process.env.GEMINI_ACCESS_TOKEN) {
           const model = process.env.GEMINI_MODEL || AI_CONFIG.models.gemini.fast;
 
-          // Prefer the stable v1beta endpoint for newer models
-          const baseEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+          // Use v1 endpoint for gemini-1.5-flash (stable models)
+          const apiVersion = 'v1';
+          const baseEndpoint = `https://generativelanguage.googleapis.com/${apiVersion}/models/${model}:generateContent`;
 
           // Support two authentication modes:
           // - GEMINI_ACCESS_TOKEN: Bearer token (recommended for service accounts / OAuth)

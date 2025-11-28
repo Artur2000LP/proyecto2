@@ -5,6 +5,55 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { Send } from 'lucide-react';
 
+// Componente para formatear texto con saltos de línea y bullets
+function FormattedMessage({ content }: { content: string }) {
+  // Dividir por líneas y renderizar con formato
+  const lines = content.split('\n');
+  
+  return (
+    <div className="space-y-2">
+      {lines.map((line, idx) => {
+        // Si la línea está vacía, agregar espacio
+        if (!line.trim()) {
+          return <div key={idx} className="h-2" />;
+        }
+        
+        // Si empieza con - o * convertir a bullet
+        if (line.trim().startsWith('-') || line.trim().startsWith('*')) {
+          return (
+            <div key={idx} className="flex gap-2">
+              <span className="text-red-400 flex-shrink-0">•</span>
+              <span>{line.trim().substring(1).trim()}</span>
+            </div>
+          );
+        }
+        
+        // Si empieza con número (1. 2. etc)
+        if (/^\d+\./.test(line.trim())) {
+          const parts = line.trim().split(/^\d+\.\s*/);
+          return (
+            <div key={idx} className="flex gap-2">
+              <span className="text-red-400 flex-shrink-0 font-semibold">{line.trim().match(/^\d+\./)?.[0]}</span>
+              <span>{parts[1]}</span>
+            </div>
+          );
+        }
+        
+        // Si está en negrita (rodeado de **)
+        if (line.includes('**')) {
+          const formatted = line.split('**').map((part, i) => 
+            i % 2 === 1 ? <strong key={i} className="font-bold text-white">{part}</strong> : part
+          );
+          return <p key={idx}>{formatted}</p>;
+        }
+        
+        // Línea normal
+        return <p key={idx}>{line}</p>;
+      })}
+    </div>
+  );
+}
+
 // Lista de videos (debería estar en un archivo compartido, pero la replicamos aquí para simplicidad)
 const VIDEOS = [
   { id: '3u1k7Jyn434', title: 'ChatGPT - Tutorial' },
@@ -66,15 +115,13 @@ export default function VideoPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-red-950 to-gray-950 p-6">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-2xl font-bold mb-4 text-white">{title}</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-3 bg-black rounded overflow-hidden">
-            <div style={{ aspectRatio: '16/9' }}>
-              <iframe src={embedUrl} title={title} className="w-full h-full" allowFullScreen />
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+          <div className="lg:col-span-2 bg-black rounded overflow-hidden h-[500px] lg:h-[600px]">
+            <iframe src={embedUrl} title={title} className="w-full h-full" allowFullScreen />
           </div>
 
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg border border-red-700/50 p-4 shadow-xl flex flex-col h-full">
-            <div className="flex items-center justify-between mb-2">
+          <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg border border-red-700/50 p-4 shadow-xl flex flex-col h-[500px] lg:h-[600px] max-h-[600px]">
+            <div className="flex items-center justify-between mb-2 flex-shrink-0">
               <h3 className="font-semibold text-white">Asistente del video</h3>
               <select
                 value={selectedProvider}
@@ -89,11 +136,11 @@ export default function VideoPage() {
               </select>
             </div>
 
-            <div className="space-y-3 mb-3 flex-1 overflow-y-auto min-h-0">
+            <div className="space-y-3 mb-3 flex-1 overflow-y-auto min-h-0 max-h-full">
               {chatMessages.map((m, i) => (
                 <div key={i} className={`${m.role === 'user' ? 'text-right' : 'text-left'}`}>
-                  <div className={`inline-block p-2 rounded ${m.role === 'user' ? 'bg-gray-700 text-white' : 'bg-red-900/50 text-white border border-red-700/50'}`}>
-                    {m.content}
+                  <div className={`inline-block p-3 rounded text-sm ${m.role === 'user' ? 'bg-gray-700 text-white' : 'bg-red-900/50 text-white border border-red-700/50 max-w-full'}`}>
+                    {m.role === 'assistant' ? <FormattedMessage content={m.content} /> : m.content}
                   </div>
                 </div>
               ))}
@@ -111,8 +158,8 @@ export default function VideoPage() {
               )}
             </div>
 
-            <div className="flex gap-2">
-              <textarea value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} className="flex-1 border border-gray-600 bg-gray-800 text-white p-2 rounded focus:outline-none focus:border-red-500" rows={2} placeholder="Escribe tu pregunta..." />
+            <div className="flex gap-2 flex-shrink-0">
+              <textarea value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} className="flex-1 border border-gray-600 bg-gray-800 text-white p-2 rounded focus:outline-none focus:border-red-500 resize-none" rows={2} placeholder="Escribe tu pregunta..." />
               <button
                 onClick={handleSendMessage}
                 disabled={isLoading || !inputMessage.trim()}

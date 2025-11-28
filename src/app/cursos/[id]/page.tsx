@@ -158,13 +158,25 @@ export default function VideoPage() {
               )}
             </div>
 
-            <div className="flex gap-2 flex-shrink-0">
-              <textarea value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} className="flex-1 border border-gray-600 bg-gray-800 text-white p-2 rounded focus:outline-none focus:border-red-500 resize-none" rows={2} placeholder="Escribe tu pregunta..." />
+            <div className="flex gap-3 flex-shrink-0 items-end">
+              <textarea 
+                value={inputMessage} 
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSendMessage();
+                  }
+                }}
+                className="flex-1 border-2 border-gray-600 bg-gray-800 text-white px-3 py-2 rounded-lg focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 resize-none transition-all" 
+                rows={2} 
+                placeholder="Escribe tu pregunta... (Enter para enviar, Shift+Enter para nueva línea)" 
+              />
               <button
                 onClick={handleSendMessage}
                 disabled={isLoading || !inputMessage.trim()}
-                className="bg-red-600 hover:bg-red-700 disabled:bg-gray-600 text-white rounded flex items-center justify-center transition"
-                style={{ minWidth: '44px', width: '44px', height: '44px', padding: 0 }}
+                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 disabled:from-gray-600 disabled:to-gray-700 text-white rounded-lg flex items-center justify-center transition-all shadow-lg hover:shadow-red-500/50 disabled:shadow-none"
+                style={{ minWidth: '48px', width: '48px', height: '48px', padding: 0 }}
                 aria-label="Enviar mensaje"
               >
                 <Send className="w-5 h-5" />

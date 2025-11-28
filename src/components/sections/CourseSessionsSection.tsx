@@ -134,6 +134,12 @@ export default function CourseSessionsSection() {
           name: "Revolución IA en Educación", 
           driveUrl: "https://drive.google.com/file/d/1t2QQy-Eu7hpYM1v9jza6ZtF_iyW4ap9H/view?usp=sharing",
           downloadUrl: "/INFORMACIÓN TIC/4. SESIÓN 3/Revolucion_IA_educacion_bancomundial_Anexo.pdf"
+        },
+        { 
+          type: "pdf", 
+          name: "Material Adicional IA", 
+          driveUrl: "https://drive.google.com/file/d/1aS53cb0cWiEzlYsWom_7irvvOJK9wZad/view?usp=sharing",
+          downloadUrl: "/INFORMACIÓN TIC/4. SESIÓN 3/Material_adicional_IA.pdf"
         }
       ],
       completed: true

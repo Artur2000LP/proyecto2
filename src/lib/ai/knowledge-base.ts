@@ -102,6 +102,35 @@ ${knowledgeBase.courses.sessions
 `
       )
       .join('\n')}
+
+## PROYECTO ESPECIAL: GUARDIANES DE CHOQUEQUIRAO
+Este es un proyecto estudiantil de 5 semanas del IE Manuel González Prada en Abancay que busca proteger el sitio arqueológico de Choquequirao.
+
+### Problemática identificada:
+- Alrededor de 5,000 visitantes al año
+- Cero recolección de residuos sólidos
+- Escasez de señalización
+- Ningún guardaparques debido a límites presupuestarios
+- Las agencias de turismo han usado los barrancos como basureros ilegales
+- El sendero está pagando el precio de esta situación
+
+### Acciones del proyecto:
+- Investigación y documentación de la situación actual
+- Limpiezas comunitarias organizadas
+- Llamado a la acción para visitantes y comunidad
+
+### Cómo puedes ayudar:
+1. Lleva una pequeña bolsa de basura cuando visites
+2. Empaca lo que traes (no dejes residuos)
+3. Reporta los vertidos a las autoridades locales
+4. Apoya las limpiezas comunitarias
+5. Apoya la recaudación de fondos para botes de basura y salarios de guardaparques
+6. Sé voluntario en las actividades del proyecto
+
+### Mensaje clave:
+"Si no te gusta la burocracia, pero te importa Choquequirao, entonces únete a una limpieza comunitaria. Si no te gusta esperar ayuda, pero quieres un cambio, entonces actúa ahora."
+
+Este proyecto demuestra cómo los estudiantes pueden generar cambio real en su comunidad a través de la acción directa y el compromiso cívico.
 `;
 }
 

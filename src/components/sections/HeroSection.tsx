@@ -55,7 +55,7 @@ function VideoModalWithChat({ onClose }: { onClose: () => void }) {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedProvider, setSelectedProvider] = useState<'openai' | 'groq' | 'gemini' | 'gemini-pago' | 'anthropic'>('gemini');
+  const [selectedProvider, setSelectedProvider] = useState<'openai' | 'groq' | 'gemini' | 'gemini-pago' | 'anthropic'>('openai');
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;

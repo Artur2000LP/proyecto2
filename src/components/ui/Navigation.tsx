@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Home, Video, Calendar, Cpu, Phone } from 'lucide-react';
+import { Menu, X, Home, Video, Calendar, Cpu, Phone, Info } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 
@@ -20,6 +20,7 @@ export default function Navigation() {
     { name: 'Sesiones', href: '/sesiones', icon: Calendar, section: 'sesiones' },
     { name: 'Cursos', href: '/cursos', icon: Cpu, section: 'aplicaciones-ia' },
     { name: 'Soporte', href: '/contact', icon: Phone, section: 'contact' },
+    { name: 'Sobre la Plataforma', href: '/sobre-plataforma', icon: Info, section: 'sobre-plataforma' },
   ];
 
   // Detectar la sección activa basándose en el scroll (solo en la página '/'),
@@ -28,6 +29,7 @@ export default function Navigation() {
     // Si estamos en otra ruta, mapear pathname a sección
     const routeMap: Record<string, string> = {
       '/': 'hero',
+      '/sobre-plataforma': 'sobre-plataforma',
       '/zoom': 'about-course',
       '/sesiones': 'sesiones',
       '/cursos': 'aplicaciones-ia',
